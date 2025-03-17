@@ -1,6 +1,6 @@
 import cv2
 from src.coordinate_denoter import CoordinateDenoter
-from src.utils import image_path
+from src.utils import image_path, rect_width, rect_height
 
 def demostration():
         
@@ -9,9 +9,6 @@ def demostration():
 
     # reading and initialing the coordinates 
     coordinate_generator.read_positions()
-
-    # setting the initial variables
-    rect_width, rect_height = coordinate_generator.rect_width, coordinate_generator.rect_height
 
     # serving the GUI window until user terminates it
     while True:

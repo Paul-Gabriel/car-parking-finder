@@ -1,14 +1,12 @@
 import cv2
 import pickle
 import numpy as np
+from src.utils import rect_height, rect_width
 
 class ParkClassifier():
         
-    def __init__(self, carp_park_positions_path:pickle, rect_width:int=None, rect_height:int=None):
-        self.car_park_positions = self._read_positions(carp_park_positions_path) 
-        self.rect_height = 48 if rect_height is None else rect_height
-        self.rect_width = 107 if rect_width is None else rect_width
-    
+    def __init__(self, carp_park_positions_path:pickle):
+        self.car_park_positions = self._read_positions(carp_park_positions_path)    
     
     def _read_positions(self, car_park_positions_path:pickle)->list:
         
@@ -27,8 +25,8 @@ class ParkClassifier():
         for x, y in self.car_park_positions:
             
             # defining the starting and ending points of the rectangle as cross line
-            col_start, col_stop = x, x + self.rect_width
-            row_start, row_stop = y, y + self.rect_height
+            col_start, col_stop = x, x + rect_width
+            row_start, row_stop = y, y + rect_height
 
             # cropping the car park areas form image
             crop=prosessed_image[row_start:row_stop, col_start:x+col_stop]
@@ -40,7 +38,7 @@ class ParkClassifier():
             empty_car_park, color, thick = [empty_car_park + 1, (0,255,0), 5] if count<threshold else [empty_car_park, (0,0,255), 2]
                 
             # drawing the rectangle on the image
-            start_point, stop_point = (x,y), (x+self.rect_width, y+self.rect_height)
+            start_point, stop_point = (x,y), (x+rect_width, y+rect_height)
             cv2.rectangle(image, start_point, stop_point, color, thick)
         
         
