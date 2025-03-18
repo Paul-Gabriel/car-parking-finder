@@ -1,18 +1,15 @@
 import cv2
 from src.park_classifire import ParkClassifier
-from src.utils import carp_park_positions_path, video_path, rect_width, rect_height
+from src.utils import CAR_PARK_COORDINATES_PATH, VIDEO_PATH
 
 
 def demostration():
-    
-    # defining the params
-    rect_width, rect_height = 100, 40
 
     # creating the classifier  instance which uses basic image processes to classify
-    classifier = ParkClassifier(carp_park_positions_path)
+    classifier = ParkClassifier(CAR_PARK_COORDINATES_PATH)
 
     # Implementation of the classy
-    cap = cv2.VideoCapture(video_path)
+    cap = cv2.VideoCapture(VIDEO_PATH)
     while True:
 
         # reading the video frame by frame

@@ -1,6 +1,6 @@
 import cv2
 from src.coordinate_denoter import CoordinateDenoter
-from src.utils import image_path, rect_width, rect_height
+from src.utils import IMAGE_PATH, RECT_WIDTH, RECT_HEIGHT
 
 def demostration():
         
@@ -14,14 +14,14 @@ def demostration():
     while True:
         
         # refreshing the image
-        image =cv2.imread(image_path)
+        image =cv2.imread(IMAGE_PATH)
 
         # drawing the current car park coordinates
         for pos in coordinate_generator.car_park_positions: 
             
             # defning the boundaries
             start = pos
-            end = (pos[0]+rect_width, pos[1]+rect_height)
+            end = (pos[0]+RECT_WIDTH, pos[1]+RECT_HEIGHT)
 
             # drawing the rectangle into the image
             cv2.rectangle(image,start,end,(0,0,255),2)

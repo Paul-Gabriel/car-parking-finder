@@ -1,5 +1,5 @@
-carp_park_positions_path = "data/source/CarParkPos"
-video_path = "data/source/carPark.mp4"
-image_path = "data/source/example_image.png"
-rect_width:int=100
-rect_height:int=40
+CAR_PARK_COORDINATES_PATH = "data/source/CarParkPos"
+VIDEO_PATH = "data/source/carPark.mp4"
+IMAGE_PATH = "data/source/example_image.png"
+RECT_WIDTH:int=100
+RECT_HEIGHT:int=42

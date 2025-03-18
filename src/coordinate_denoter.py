@@ -1,10 +1,10 @@
 import cv2
 import pickle
-from src.utils import carp_park_positions_path, rect_width, rect_height
+from src.utils import CAR_PARK_COORDINATES_PATH, RECT_WIDTH, RECT_HEIGHT
 
 class CoordinateDenoter():
 
-    def __init__(self, car_park_positions_path:pickle=carp_park_positions_path):
+    def __init__(self, car_park_positions_path:pickle=CAR_PARK_COORDINATES_PATH):
         self.car_park_positions_path = car_park_positions_path
         self.car_park_positions = list()
 
@@ -33,8 +33,8 @@ class CoordinateDenoter():
                 x1,y1=pos
                 
                 # setting the condition
-                is_x_in_range= x1 <= x <= x1+rect_width
-                is_y_in_range= y1 <= y <= y1+rect_height
+                is_x_in_range= x1 <= x <= x1+RECT_WIDTH
+                is_y_in_range= y1 <= y <= y1+RECT_HEIGHT
 
                 # checking the label is in the range
                 if is_x_in_range and is_y_in_range:
