@@ -18,7 +18,7 @@ class ParkClassifier():
 
         return car_park_positions
 
-    def classify(self, image:np.ndarray, prosessed_image:np.ndarray,threshold:int=1000)->np.ndarray:
+    def classify(self, image:np.ndarray, prosessed_image:np.ndarray,threshold:int=500)->np.ndarray:
         
         #0 for not showing the process steps
         #1 for showing the process steps
@@ -39,11 +39,12 @@ class ParkClassifier():
             row_start, row_stop = y, y + RECT_HEIGHT
 
             # cropping the car park areas form image
-            crop=prosessed_image[row_start:row_stop, col_start:x+col_stop]
-            
+            crop=prosessed_image[row_start:row_stop, col_start:col_stop]
+
             # counting the number of pixel which below the threshold value reason of the expectation that previous image processing steps
-            count=cv2.countNonZero(crop)
-            
+            count = cv2.countNonZero(crop)
+            # count1 = np.sum(crop == 255)
+
             # classifying accprding to the threshold value to updating counts and setting drawing params
             empty_car_park, color, thick = [empty_car_park + 1, (0,255,0), 5] if count<threshold else [empty_car_park, (0,0,255), 2]
                 
@@ -87,18 +88,25 @@ class ParkClassifier():
         
         # implementing threashold to get forground object
         Thresholded=cv2.adaptiveThreshold(blur1,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY_INV,25,16)
-        
+        # Thresholded1=cv2.threshold(blur1, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+
         # bluring the image to reduce noise and normalize the pixel value gap which is caused by adaptive threshold
         blur2=cv2.medianBlur(Thresholded, 5)
         
         # dilalting for increasing foreground object.
         dilate=cv2.dilate(blur2,kernel_size,iterations=1)
 
+        # # Coloring all pixels red in the dilated image
+        # dilate_colored = cv2.cvtColor(dilate, cv2.COLOR_GRAY2BGR)
+        # dilate_colored[np.where((dilate_colored == [255, 255, 255]).all(axis=2))] = [0, 0, 255]
+
         if k==1:
             cv2.imshow("Gray",gray)
             cv2.imshow("Blur1",blur1)
             cv2.imshow("Thresholded",Thresholded)
+            # cv2.imshow("Thresholded1",Thresholded1[1])
             cv2.imshow("Blur2",blur2)
             cv2.imshow("Dilate",dilate)
+            # cv2.imshow("Dilate Colored",dilate_colored)
             
         return dilate
